@@ -1,0 +1,26 @@
+services:
+  postgres:
+    container_name: postgres-c
+    image: postgres:latest
+    volumes:
+      - postgres-v:${PGDATA}
+      - ./postgres-scripts/:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      cp-network:
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+
+networks:
+  cp-network:
+    name: cp-network
+    driver: bridge
+
+volumes:
+  postgres-v:
+    name: postgres-v
