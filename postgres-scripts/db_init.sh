@@ -22,7 +22,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
                   );
 
                   CREATE TABLE IF NOT EXISTS testcases (
-                      id BIGSERIAL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                      id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                       exercise_id UUID REFERENCES exercises (id),
                       input_data TEXT,
                       expected_output TEXT,
@@ -30,7 +30,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
                   );
 
                   CREATE TABLE IF NOT EXISTS submissions (
-                      id BIGSERIAL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                      id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
                       user_id UUID REFERENCES users (id),
                       exercise_id UUID REFERENCES exercises (id),
                       submitted_code TEXT,
