@@ -17,8 +17,9 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
                       author_id UUID REFERENCES users (id),
                       title VARCHAR(255) NOT NULL,
                       description_markdown TEXT NOT NULL,
-                      difficulty VARCHAR(255) NOT NULL,
-                      starter_code TEXT
+                      starter_code TEXT,
+                      created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+                      updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
                   );
 
                   CREATE TABLE IF NOT EXISTS testcases (
@@ -35,6 +36,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
                       exercise_id UUID REFERENCES exercises (id),
                       submitted_code TEXT,
                       status VARCHAR(255),
-                      timestamp TIMESTAMP
+                      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                   );
 EOSQL
