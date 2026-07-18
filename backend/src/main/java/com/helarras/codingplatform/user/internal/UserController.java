@@ -1,23 +1,31 @@
 package com.helarras.codingplatform.user.internal;
 
+import com.helarras.codingplatform.user.CustomUserDetails;
+import com.helarras.codingplatform.user.User;
 import com.helarras.codingplatform.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserDto user) {
+    public ResponseEntity<String> register(@RequestBody UserDto user) {
         userService.createUser(user);
         return ResponseEntity.ok("User created successfully");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<String> getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        User fullEntity = userDetails.getUserEntity();
+
+        return ResponseEntity.ok("Logged in as: " + fullEntity.getEmail() + " Database UUID: " + fullEntity.getId());
     }
 }
