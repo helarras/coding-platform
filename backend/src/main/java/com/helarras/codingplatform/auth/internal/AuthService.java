@@ -3,6 +3,7 @@ package com.helarras.codingplatform.auth.internal;
 import com.helarras.codingplatform.auth.LoginDto;
 import com.helarras.codingplatform.auth.User;
 import com.helarras.codingplatform.auth.RegisterDto;
+import com.helarras.codingplatform.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

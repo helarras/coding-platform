@@ -1,7 +1,9 @@
-package com.helarras.codingplatform.auth.internal;
+package com.helarras.codingplatform.config;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
@@ -13,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -48,7 +51,38 @@ public class JwtService {
                 .compact();
     }
 
-    private Key getKey() {
+    private SecretKey getKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
+
+
+    public boolean validateToken(String token, UserDetails details) {
+        final var email = extractEmail(token);
+        return (email.equals(details.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public String extractEmail(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
+        final var claims = extractAllClaims(token);
+        return claimResolver.apply(claims);
     }
 }
