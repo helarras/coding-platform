@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class AuthService {
     private final UserRepository repository;
     private final Mapper mapper;
     private final PasswordEncoder passwordEncoder;

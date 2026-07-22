@@ -1,4 +1,4 @@
-package com.helarras.codingplatform.user;
+package com.helarras.codingplatform.auth;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class UserPrincipal implements UserDetails {
 
     private final User userEntity;
 

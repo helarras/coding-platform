@@ -1,13 +1,13 @@
-package com.helarras.codingplatform.user.internal;
+package com.helarras.codingplatform.auth.internal;
 
-import com.helarras.codingplatform.user.User;
-import com.helarras.codingplatform.user.UserDto;
+import com.helarras.codingplatform.auth.User;
+import com.helarras.codingplatform.auth.registerDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Mapper {
 
-    public User toUserEntity(UserDto userDto) {
+    public User toUserEntity(registerDto userDto) {
         return User.builder()
                 .username(userDto.username())
                 .email(userDto.email())

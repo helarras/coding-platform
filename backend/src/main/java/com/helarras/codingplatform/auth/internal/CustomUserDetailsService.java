@@ -1,6 +1,6 @@
-package com.helarras.codingplatform.auth;
+package com.helarras.codingplatform.auth.internal;
 
-import com.helarras.codingplatform.auth.internal.UserRepository;
+import com.helarras.codingplatform.auth.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.userdetails.UserDetails;

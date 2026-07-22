@@ -1,4 +1,4 @@
-package com.helarras.codingplatform.user;
+package com.helarras.codingplatform.auth;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

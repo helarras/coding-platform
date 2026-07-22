@@ -1,6 +1,6 @@
-package com.helarras.codingplatform.user.internal;
+package com.helarras.codingplatform.auth.internal;
 
-import com.helarras.codingplatform.user.User;
+import com.helarras.codingplatform.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

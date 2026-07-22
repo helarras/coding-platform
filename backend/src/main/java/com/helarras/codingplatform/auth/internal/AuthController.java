@@ -1,32 +1,31 @@
-package com.helarras.codingplatform.user.internal;
+package com.helarras.codingplatform.auth.internal;
 
-import com.helarras.codingplatform.user.CustomUserDetails;
-import com.helarras.codingplatform.user.User;
-import com.helarras.codingplatform.user.UserDto;
+import com.helarras.codingplatform.auth.UserPrincipal;
+import com.helarras.codingplatform.auth.User;
+import com.helarras.codingplatform.auth.registerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class AuthController {
+    private final AuthService authService;
 
 
-    @PostMapping
-    public ResponseEntity<String> register(@RequestBody UserDto user) {
-        userService.createUser(user);
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody registerDto user) {
+        authService.createUser(user);
         return ResponseEntity.ok("User created successfully");
     }
 
     @GetMapping("/me")
-    public ResponseEntity<String> getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
+    public ResponseEntity<String> getCurrentUser(@AuthenticationPrincipal UserPrincipal userDetails) {
         User fullEntity = userDetails.getUserEntity();
 
         return ResponseEntity.ok("Logged in as: " + fullEntity.getEmail() + " Database UUID: " + fullEntity.getId());
