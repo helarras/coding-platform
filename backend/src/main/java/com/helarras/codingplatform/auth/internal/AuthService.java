@@ -27,6 +27,6 @@ public class AuthService {
 
     public String verify(LoginDto loginDto) {
         var auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.email(), loginDto.password()));
-        return auth.isAuthenticated() ? jwtService.generateToken() : "Authentication failed!";
+        return auth.isAuthenticated() ? jwtService.generateToken(loginDto.email()) : "Authentication failed!";
     }
 }
