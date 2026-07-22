@@ -1,9 +1,8 @@
-package com.helarras.codingplatform.user.internal;
+package com.helarras.codingplatform.auth;
 
-import com.helarras.codingplatform.user.CustomUserDetails;
+import com.helarras.codingplatform.auth.internal.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         var user = repository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User not found with email: " + email));
 
-        return new CustomUserDetails(user);
+        return new UserPrincipal(user);
     }
 }
