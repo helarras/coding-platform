@@ -1,8 +1,9 @@
 package com.helarras.codingplatform.auth.internal;
 
+import com.helarras.codingplatform.auth.LoginDto;
 import com.helarras.codingplatform.auth.UserPrincipal;
 import com.helarras.codingplatform.auth.User;
-import com.helarras.codingplatform.auth.registerDto;
+import com.helarras.codingplatform.auth.RegisterDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +20,15 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody registerDto user) {
+    public ResponseEntity<String> register(@RequestBody RegisterDto user) {
         authService.createUser(user);
         return ResponseEntity.ok("User created successfully");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+        System.out.println(loginDto);
+        return ResponseEntity.ok(authService.verify(loginDto));
     }
 
     @GetMapping("/me")
