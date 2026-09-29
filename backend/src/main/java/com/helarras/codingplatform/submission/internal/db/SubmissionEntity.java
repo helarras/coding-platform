@@ -1,10 +1,7 @@
 package com.helarras.codingplatform.submission.internal.db;
 
 import com.helarras.codingplatform.submission.internal.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,7 +11,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "submissions")
+@Entity
+@Table(name = "submissions")
 public class SubmissionEntity {
     @Id
     private UUID id;
