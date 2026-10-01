@@ -1,6 +1,7 @@
 package com.helarras.codingplatform.problem.internal.web;
 
 import com.helarras.codingplatform.problem.ProblemService;
+import com.helarras.codingplatform.problem.TestCaseDto;
 import com.helarras.codingplatform.problem.internal.Difficulty;
 import com.helarras.codingplatform.problem.internal.TestCase;
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,7 @@ public class ProblemController {
     }
 
     @GetMapping("/{id}/testcases")
-    public ResponseEntity<Set<TestCase>> problemTestCases(@PathVariable UUID id) {
+    public ResponseEntity<Set<TestCaseDto>> problemTestCases(@PathVariable UUID id) {
         return ResponseEntity.ok(service.getProblemTestCases(id));
     }
 }

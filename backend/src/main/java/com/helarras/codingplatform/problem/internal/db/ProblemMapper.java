@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.problem.internal.db;
 
+import com.helarras.codingplatform.problem.TestCaseDto;
 import com.helarras.codingplatform.problem.internal.Problem;
 import com.helarras.codingplatform.problem.internal.TestCase;
 import com.helarras.codingplatform.problem.internal.web.ProblemResponse;
@@ -63,6 +64,13 @@ public final class ProblemMapper {
                 .status(problem.getStatus())
                 .difficulty(problem.getDifficulty())
                 .examples(problem.getVisibleTestCases())
+                .build();
+    }
+
+    public TestCaseDto toTestCaseDto(TestCase testCase) {
+        return TestCaseDto.builder()
+                .input(testCase.input())
+                .expectedOutput(testCase.expectedOutput())
                 .build();
     }
 }

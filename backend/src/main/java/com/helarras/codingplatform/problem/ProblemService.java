@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProblemService {
@@ -70,10 +71,13 @@ public class ProblemService {
         return mapper.toResponse(repository.save(problem));
     }
 
-    public Set<TestCase> getProblemTestCases(UUID problemId) {
+    public Set<TestCaseDto> getProblemTestCases(UUID problemId) {
         var problem = repository.findById(problemId)
                 .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + problemId));
-        return problem.getTestCases();
+        return problem.getTestCases()
+                .stream()
+                .map(mapper::toTestCaseDto)
+                .collect(Collectors.toSet());
     }
 
 
