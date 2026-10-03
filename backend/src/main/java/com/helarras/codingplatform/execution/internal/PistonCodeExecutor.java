@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.execution.internal;
 
+import com.helarras.codingplatform.execution.ExecutionResult;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.stereotype.Component;

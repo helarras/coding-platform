@@ -1,4 +1,4 @@
-package com.helarras.codingplatform.execution.internal;
+package com.helarras.codingplatform.execution;
 
 import lombok.Builder;
 

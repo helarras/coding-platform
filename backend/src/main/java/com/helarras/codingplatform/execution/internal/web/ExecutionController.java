@@ -1,7 +1,7 @@
 package com.helarras.codingplatform.execution.internal.web;
 
 import com.helarras.codingplatform.execution.ExecutionService;
-import com.helarras.codingplatform.execution.internal.ExecutionResult;
+import com.helarras.codingplatform.execution.ExecutionResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
