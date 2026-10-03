@@ -17,12 +17,7 @@ public class SubmissionController {
 
     @PostMapping
     public UUID submit(@RequestBody SubmitRequest body) {
-        return service.submitCode(body.userId(), body.problemId(), body.sourceCode());
-    }
-
-    @PostMapping("/{id}/evaluate")
-    public void evaluate(@PathVariable UUID id, @RequestBody EvaluateRequest body) {
-        service.recordEvaluation(id, body.passed(), body.reason());
+        return service.submitCode(body.userId(), body.problemId(), body.language(), body.sourceCode());
     }
 
     @GetMapping("/{id}")

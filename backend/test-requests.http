@@ -1,0 +1,77 @@
+### Create Two Sum Problem
+POST http://localhost:8080/api/problems
+Content-Type: application/json
+
+{
+  "title": "Two Sum",
+  "description": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order."
+}
+
+### Add Test Case 1 (Example: replace UUID with the actual problem ID)
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/testcase/new
+Content-Type: application/json
+
+{
+  "input": "[2, 7, 11, 15]\n9",
+  "expectedOutput": "[0, 1]"
+}
+
+### Add Test Case 2
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/testcase/new
+Content-Type: application/json
+
+{
+  "input": "[3, 2, 4]\n6",
+  "expectedOutput": "[1, 2]"
+}
+
+### Add Test Case 3
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/testcase/new
+Content-Type: application/json
+
+{
+  "input": "[3, 3]\n6",
+  "expectedOutput": "[0, 1]"
+}
+
+### Add Test Case 4
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/testcase/new
+Content-Type: application/json
+
+{
+  "input": "[1, 5, 8, 12, 14]\n20",
+  "expectedOutput": "[2, 3]"
+}
+
+### Add Test Case 5
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/testcase/new
+Content-Type: application/json
+
+{
+  "input": "[-1, -2, -3, -4, -5]\n-8",
+  "expectedOutput": "[2, 4]"
+}
+
+### Set Problem Difficulty
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/difficulty?difficulty=EASY
+
+### Publish Problem
+POST http://localhost:8080/api/problems/097ef98b-499b-4008-afb9-eeea3788b103/publish
+
+### Fetch All Published Problems
+GET http://localhost:8080/api/problems
+
+
+### Fetch All submissions
+GET http://localhost:8080/api/submissions/f57e6417-14b9-4798-b57a-0d28de1e26ea
+
+### Submit Code to Problem
+POST http://localhost:8080/api/submissions
+Content-Type: application/json
+
+{
+  "userId": "097ef98b-499b-4008-afb9-eeea3788b102",
+  "problemId": "097ef98b-499b-4008-afb9-eeea3788b103",
+  "language": "python",
+  "sourceCode": "import sys\nimport json\n\ndef twoSum(nums, target):\n    numMap = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in numMap:\n            return [numMap[complement], i]\n        numMap[num] = i\n    return []\n\nlines = sys.stdin.read().strip().splitlines()\nnums = json.loads(lines[0])\ntarget = int(lines[1])\nprint(json.dumps(twoSum(nums, target)))"
+}

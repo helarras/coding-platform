@@ -8,6 +8,7 @@ import java.util.UUID;
 public record SubmitRequest(
         UUID userId,
         UUID problemId,
+        String language,
         String sourceCode
 ) {
 }

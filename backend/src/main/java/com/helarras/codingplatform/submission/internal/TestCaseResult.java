@@ -1,4 +1,4 @@
-package com.helarras.codingplatform.execution;
+package com.helarras.codingplatform.submission.internal;
 
 import lombok.Builder;
 
@@ -9,16 +9,4 @@ public record TestCaseResult(
         String expectedOutput,
         String actualOutput,
         String errorOutput
-) {
-
-    @Override
-    public String toString() {
-        return "TestCaseResult{" +
-                "passed=" + passed +
-                ", input='" + input + '\'' +
-                ", expectedOutput='" + expectedOutput + '\'' +
-                ", actualOutput='" + actualOutput + '\'' +
-                ", errorOutput='" + errorOutput + '\'' +
-                '}';
-    }
-}
+) {}

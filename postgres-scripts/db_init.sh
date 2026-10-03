@@ -18,9 +18,19 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
                          problem_id UUID,
                          source_code TEXT,
                          status VARCHAR(50),
-                         fail_reason TEXT,
                          created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
                      );
+
+                     CREATE TABLE IF NOT EXISTS submission_testcase_results (
+                        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                        submission_id UUID REFERENCES submissions(id),
+                        passed BOOLEAN NOT NULL,
+                        input TEXT,
+                        expected_output TEXT,
+                        actual_output TEXT,
+                        error_output TEXT
+                     );
+
 
                      CREATE TABLE IF NOT EXISTS problems (
                         id UUID PRIMARY KEY,

@@ -4,6 +4,7 @@ import com.helarras.codingplatform.submission.internal.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -21,5 +22,6 @@ public class SubmissionEntity {
     private String sourceCode;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private String failReason;
+    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TestResultEntity> testResults;
 }

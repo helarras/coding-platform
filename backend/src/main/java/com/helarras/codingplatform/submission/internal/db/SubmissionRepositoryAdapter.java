@@ -3,6 +3,7 @@ package com.helarras.codingplatform.submission.internal.db;
 import com.helarras.codingplatform.submission.internal.ISubmissionRepository;
 import com.helarras.codingplatform.submission.internal.Submission;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class SubmissionRepositoryAdapter implements ISubmissionRepository {
     }
 
     @Override
+    @Transactional
     public Submission findById(UUID id) {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Submission entity can't be found: " + id));
