@@ -2,6 +2,7 @@ package com.helarras.codingplatform.submission.internal.web;
 
 import com.helarras.codingplatform.submission.SubmissionService;
 import com.helarras.codingplatform.submission.internal.Submission;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.ObjectMapper;
@@ -16,7 +17,7 @@ public class SubmissionController {
 
 
     @PostMapping
-    public UUID submit(@RequestBody SubmitRequest body) {
+    public UUID submit(@RequestBody @Valid SubmitRequest body) {
         return service.submitCode(body.userId(), body.problemId(), body.language(), body.sourceCode());
     }
 

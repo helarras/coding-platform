@@ -2,6 +2,7 @@ package com.helarras.codingplatform.common.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -65,6 +66,23 @@ public class GlobalExceptionHandler {
         var response = ErrorResponse.of(
                 HttpStatus.UNAUTHORIZED,
                 e.getMessage()
+        );
+        return ResponseEntity
+                .status(response.status())
+                .body(response);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
+        String errorMessage = e.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .findFirst()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .orElse("Invalid input provided");
+        var response = ErrorResponse.of(
+                HttpStatus.BAD_REQUEST,
+                errorMessage
         );
         return ResponseEntity
                 .status(response.status())

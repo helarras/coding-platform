@@ -2,6 +2,7 @@ package com.helarras.codingplatform.execution.internal.web;
 
 import com.helarras.codingplatform.execution.ExecutionService;
 import com.helarras.codingplatform.execution.ExecutionResult;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class ExecutionController {
     private final ExecutionService service;
 
     @PostMapping
-    public ResponseEntity<ExecutionResponse> runCode(@RequestBody ExecutionRequest body) {
+    public ResponseEntity<ExecutionResponse> runCode(@RequestBody @Valid ExecutionRequest body) {
         ExecutionResult result = service.run(body.language(), body.sourceCode(), body.input());
         return ResponseEntity.ok(
                 ExecutionResponse.builder()

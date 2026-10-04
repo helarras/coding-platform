@@ -4,6 +4,7 @@ import com.helarras.codingplatform.problem.ProblemService;
 import com.helarras.codingplatform.problem.TestCaseDto;
 import com.helarras.codingplatform.problem.internal.Difficulty;
 import com.helarras.codingplatform.problem.internal.TestCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class ProblemController {
     }
 
     @PostMapping
-    public ResponseEntity<ProblemResponse> addProblem(@RequestBody ProblemRequest body) {
+    public ResponseEntity<ProblemResponse> addProblem(@RequestBody @Valid ProblemRequest body) {
         return new ResponseEntity<>(service.createProblem(body.title(), body.description()), HttpStatus.CREATED);
     }
 
@@ -42,12 +43,12 @@ public class ProblemController {
     }
 
     @PostMapping("/{id}/testcase/new")
-    public ResponseEntity<ProblemResponse> createTestCase(@PathVariable UUID id, @RequestBody TestCaseRequest body) {
+    public ResponseEntity<ProblemResponse> createTestCase(@PathVariable UUID id, @RequestBody @Valid TestCaseRequest body) {
         return ResponseEntity.ok(service.addTestCase(id, body.input(), body.expectedOutput()));
     }
 
     @DeleteMapping("/{id}/testcase/remove")
-    public ResponseEntity<ProblemResponse> removeTestCase(@PathVariable UUID id, @RequestBody TestCaseRequest body) {
+    public ResponseEntity<ProblemResponse> removeTestCase(@PathVariable UUID id, @RequestBody @Valid TestCaseRequest body) {
         return ResponseEntity.ok(service.removeTestCase(id, body.input(), body.expectedOutput()));
     }
 
