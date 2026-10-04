@@ -16,6 +16,9 @@ public class TestCaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "problem_id")
+    private ProblemEntity problem;
     private String input;
     private String expectedOutput;
 }

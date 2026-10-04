@@ -12,19 +12,6 @@ public class ExecutionService {
 
     private final ICodeExecutor executor;
 
-
-//    private TestCaseResult gradeTestCase(ExecutionResult executionResult, TestCaseDto testCase) {
-//
-//        boolean result = executionResult.output().trim().equals(testCase.expectedOutput().trim());
-//        return TestCaseResult.builder()
-//                .passed(result)
-//                .input(testCase.input())
-//                .expectedOutput(testCase.expectedOutput())
-//                .actualOutput(executionResult.output())
-//                .errorOutput(executionResult.error())
-//                .build();
-//    }
-
     public List<ExecutionResult> runMultiple(String language, String sourceCode, List<String> inputs) {
         return inputs.stream()
                 .map((input) -> executor.run(language, sourceCode, input))

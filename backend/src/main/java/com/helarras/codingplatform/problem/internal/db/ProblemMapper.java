@@ -35,22 +35,24 @@ public final class ProblemMapper {
     }
 
     public ProblemEntity toEntity(Problem problem) {
-        var testCaseEntities = problem.getTestCases()
-                .stream()
-                .map(this::toTestCaseEntity)
-                .collect(Collectors.toSet());
-        return ProblemEntity.builder()
+        var entity = ProblemEntity.builder()
                 .id(problem.getId())
                 .title(problem.getTitle())
                 .description(problem.getDescription())
                 .status(problem.getStatus())
                 .difficulty(problem.getDifficulty())
-                .testCases(testCaseEntities)
                 .build();
+        var testCaseEntities = problem.getTestCases()
+                .stream()
+                .map((testCase -> toTestCaseEntity(testCase, entity)))
+                .collect(Collectors.toSet());
+        entity.setTestCases(testCaseEntities);
+        return entity;
     }
 
-    public TestCaseEntity toTestCaseEntity(TestCase testCase) {
+    public TestCaseEntity toTestCaseEntity(TestCase testCase, ProblemEntity entity) {
         return TestCaseEntity.builder()
+                .problem(entity)
                 .input(testCase.input())
                 .expectedOutput(testCase.expectedOutput())
                 .build();

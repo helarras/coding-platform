@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.problem.internal;
 
+import com.helarras.codingplatform.common.exception.ProblemPublishingException;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -34,11 +35,11 @@ public class Problem {
 
     public void publish() {
         if (status == Status.PUBLISHED)
-            throw new RuntimeException("This problem is already published");
+            throw new ProblemPublishingException("This problem is already published");
         if (testCases.isEmpty())
-            throw new RuntimeException("A problem must have at least 1 test cases to be published");
+            throw new ProblemPublishingException("A problem must have at least 1 test cases to be published");
         if (difficulty == Difficulty.UNDEFINED)
-            throw new RuntimeException("A problem cannot be published unless an Admin has explicitly confirmed its difficulty level.");
+            throw new ProblemPublishingException("A problem cannot be published unless an Admin has explicitly confirmed its difficulty level.");
         this.status = Status.PUBLISHED;
     }
 

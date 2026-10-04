@@ -25,7 +25,6 @@ public class ProblemEntity {
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "problem_id")
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TestCaseEntity> testCases;
 }

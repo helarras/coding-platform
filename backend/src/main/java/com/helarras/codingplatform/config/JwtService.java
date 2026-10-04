@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.config;
 
+import com.helarras.codingplatform.common.exception.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -29,7 +30,7 @@ public class JwtService {
             SecretKey sk = keyGen.generateKey();
             secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException();
+            throw new InvalidTokenException("Invalid token");
         }
     }
 

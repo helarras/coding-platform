@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.submission;
 
+import com.helarras.codingplatform.common.exception.ResourceNotFoundException;
 import com.helarras.codingplatform.execution.ExecutionService;
 import com.helarras.codingplatform.submission.internal.*;
 import com.helarras.codingplatform.problem.ProblemService;
@@ -34,15 +35,15 @@ public class SubmissionService {
     }
 
     public void recordEvaluation(UUID submissionId, EvaluationResult evaResult) {
-        var submission = repository.findById(submissionId);
-        if (submission == null)
-            throw new RuntimeException("Can't find the submission with id: " + submissionId);
+        var submission = repository.findById(submissionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find the submission with id: " + submissionId));
         submission.recordEvaluation(evaResult);
         repository.save(submission);
     }
 
     public Submission getSubmission(UUID id) {
-        return repository.findById(id);
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find the submission with id: " + id));
     }
 
 }

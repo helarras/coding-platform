@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.problem;
 
+import com.helarras.codingplatform.common.exception.ResourceNotFoundException;
 import com.helarras.codingplatform.problem.internal.Difficulty;
 import com.helarras.codingplatform.problem.internal.IProblemRepository;
 import com.helarras.codingplatform.problem.internal.Problem;
@@ -39,41 +40,41 @@ public class ProblemService {
 
     public ProblemResponse getProblem(UUID id) {
         var problem =  repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + id));
         return mapper.toResponse(problem);
     }
 
     public ProblemResponse publishProblem(UUID id) {
         var problem = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + id));
         problem.publish();
         return mapper.toResponse(repository.save(problem));
     }
 
     public ProblemResponse addTestCase(UUID problemId, String input, String expectedOutput) {
         var problem = repository.findById(problemId)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + problemId));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + problemId));
         problem.addTestCase(new TestCase(input, expectedOutput));
         return mapper.toResponse(repository.save(problem));
     }
 
     public ProblemResponse removeTestCase(UUID problemId, String input, String expectedOutput) {
         var problem = repository.findById(problemId)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + problemId));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + problemId));
         problem.removeTestCase(new TestCase(input, expectedOutput));
         return mapper.toResponse(repository.save(problem));
     }
 
     public ProblemResponse updateDifficulty(UUID problemId, Difficulty difficulty) {
         var problem = repository.findById(problemId)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + problemId));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + problemId));
         problem.setDifficulty(difficulty);
         return mapper.toResponse(repository.save(problem));
     }
 
     public Set<TestCaseDto> getProblemTestCases(UUID problemId) {
         var problem = repository.findById(problemId)
-                .orElseThrow(() -> new RuntimeException("Can't find problem with id: " + problemId));
+                .orElseThrow(() -> new ResourceNotFoundException("Can't find problem with id: " + problemId));
         return problem.getTestCases()
                 .stream()
                 .map(mapper::toTestCaseDto)

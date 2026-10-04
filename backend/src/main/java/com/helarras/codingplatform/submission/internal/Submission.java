@@ -1,5 +1,6 @@
 package com.helarras.codingplatform.submission.internal;
 
+import com.helarras.codingplatform.common.exception.IllegalSubmissionStateException;
 import lombok.Getter;
 
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class Submission {
 
     public void recordEvaluation(EvaluationResult result) {
         if (!this.result.status().equals(Status.PENDING))
-            throw new RuntimeException("Submission is already evaluated");
+            throw new IllegalSubmissionStateException("Submission is already evaluated");
         this.result = result;
     }
 

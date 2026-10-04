@@ -9,9 +9,9 @@ public record TestCase(
 
     public TestCase {
         if (input == null)
-            throw new RuntimeException("Test case input can't be null");
+            throw new IllegalArgumentException("Test case input can't be null");
         if (expectedOutput == null)
-            throw new RuntimeException("expected output can't be null");
+            throw new IllegalArgumentException("expected output can't be null");
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.helarras.codingplatform.problem.internal.Problem;
 import com.helarras.codingplatform.problem.internal.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class ProblemRepositoryAdapter implements IProblemRepository {
     private final ProblemMapper mapper;
 
     @Override
+    @Transactional
     public List<Problem> findPublished() {
         return repository.findAllByStatus(Status.PUBLISHED)
                 .stream()
@@ -31,6 +33,7 @@ public class ProblemRepositoryAdapter implements IProblemRepository {
     }
 
     @Override
+    @Transactional
     public Optional<Problem> findById(UUID id) {
         var entity = repository.findById(id);
         return entity.map(mapper::toDomain);
