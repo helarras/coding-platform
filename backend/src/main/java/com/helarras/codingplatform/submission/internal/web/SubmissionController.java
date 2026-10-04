@@ -4,9 +4,11 @@ import com.helarras.codingplatform.submission.SubmissionService;
 import com.helarras.codingplatform.submission.internal.Submission;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -24,5 +26,13 @@ public class SubmissionController {
     @GetMapping("/{id}")
     public Submission fetchSubmission(@PathVariable UUID id) {
         return service.getSubmission(id);
+    }
+
+    @GetMapping("/problem/{problemId}")
+    public ResponseEntity<List<Submission>> getUserSubmissions(
+            @PathVariable UUID problemId,
+            @RequestParam UUID userId
+    ) {
+        return ResponseEntity.ok(service.getSubmissionHistory(problemId, userId));
     }
 }

@@ -46,4 +46,7 @@ public class SubmissionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Can't find the submission with id: " + id));
     }
 
+    public List<Submission> getSubmissionHistory(UUID problemId, UUID userId) {
+        return repository.findAllByProblemIdAndUserId(problemId, userId);
+    }
 }

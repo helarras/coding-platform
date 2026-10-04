@@ -6,6 +6,7 @@ import com.helarras.codingplatform.submission.internal.Submission;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,5 +30,14 @@ public class SubmissionRepositoryAdapter implements ISubmissionRepository {
     public Optional<Submission> findById(UUID id) {
         return repository.findById(id)
                 .map(mapper::toDomain);
+    }
+
+    @Override
+    @Transactional
+    public List<Submission> findAllByProblemIdAndUserId(UUID problemId, UUID userId) {
+        return repository.findAllByProblemIdAndUserId(problemId, userId)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }
